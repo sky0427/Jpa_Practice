@@ -30,4 +30,8 @@ public class PostService {
         Thread.sleep(10000);
         return postRepository.findWithShareLockById(id);
     }
+
+    public Optional<Post> findWithWriteLockById(Long id) {
+        return postRepository.findWithWriteLockById(id);
+    }
 }

@@ -18,6 +18,15 @@ public class PostService {
         return postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Post not found"));
     }
 
+    public Post create(String title, String content, String username) {
+        Post post =  Post.builder()
+                .title(title)
+                .content(content)
+                .username(username)
+                .build();
+        return postRepository.save(post);
+    }
+
     public List<Post> findByUsername(String username) {
         postRepository.findById(1L);
         postRepository.findByUsername(username);
@@ -33,5 +42,16 @@ public class PostService {
 
     public Optional<Post> findWithWriteLockById(Long id) {
         return postRepository.findWithWriteLockById(id);
+    }
+
+    @SneakyThrows
+    @Transactional
+    public Post modifyOptimistic(Long id) {
+        Post post = postRepository.findById(id).orElseThrow();
+
+        Thread.sleep(10_000);
+
+        post.setUsername(post.getUsername() + "!");
+        return post;
     }
 }

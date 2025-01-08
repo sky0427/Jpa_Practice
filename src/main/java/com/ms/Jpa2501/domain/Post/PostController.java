@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/post")
@@ -32,5 +31,10 @@ public class PostController {
     @GetMapping("/findWithWriteLockById/{id}")
     public Post findWithWriteLockById(@PathVariable Long id) {
         return postService.findWithWriteLockById(id).orElse(null);
+    }
+
+    @GetMapping("/modify/optimistic/{id}")
+    public Post modifyOptimistic(@PathVariable Long id) {
+        return postService.modifyOptimistic(id);
     }
 }

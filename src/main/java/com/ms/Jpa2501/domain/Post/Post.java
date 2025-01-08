@@ -1,15 +1,12 @@
 package com.ms.Jpa2501.domain.Post;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
@@ -19,4 +16,7 @@ public class Post {
     private String title;
     private String content;
     private String username;
+    // 낙관적 락을 위한 버전
+    @Version
+    private Integer version;
 }
